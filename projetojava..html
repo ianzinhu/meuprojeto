@@ -1,32 +1,129 @@
 <!DOCTYPE html>
-<html lang="en">
-
+<html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="style.css">
-  <title>Real-Time Chat Application</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Validador de e-mail</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            min-height: 100vh;
+            display: grid;
+            place-items: center;
+            margin: 0;
+            padding: 24px;
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #eaf2f8, #c9dceb);
+            color: #172033;
+        }
+
+        main {
+            width: min(100%, 440px);
+            padding: 32px;
+            border-radius: 12px;
+            background: white;
+            box-shadow: 0 12px 32px rgb(35 56 75 / 20%);
+        }
+
+        h1 {
+            margin-top: 0;
+        }
+
+        .descricao {
+            color: #526174;
+        }
+
+        form {
+            display: grid;
+            gap: 10px;
+        }
+
+        label {
+            font-weight: bold;
+        }
+
+        input,
+        button {
+            min-height: 44px;
+            padding: 10px 12px;
+            border-radius: 6px;
+            font: inherit;
+        }
+
+        input {
+            border: 1px solid #aebdcb;
+        }
+
+        button {
+            border: 0;
+            background: #1769aa;
+            color: white;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        button:hover {
+            background: #12578d;
+        }
+
+        #msgemail {
+            min-height: 24px;
+            margin-top: 18px;
+            font-weight: bold;
+        }
+    </style>
 </head>
 
 <body>
-  <header>
-    <h1>Real-Time Chat Application</h1>
-  </header>
-  <div class="container">
-    <div class="chat-window">
-      <div class="chat-area">
-        <div class="chat-messages">
-          <!-- Chat Messages -->
-        </div>
-      </div>
-      <div class="user-input">
-        <input type="text" id="message-input" placeholder="Type your message...">
-        <button id="send-button">enviar</button>
-      </div>
-    </div>
-  </div>
+    <main>
+        <h1>Validar e-mail</h1>
 
-  <script data-two_delay_id="two_6511879aaa1aa" data-two_delay_src="script.js"></script>
+        <p class="descricao">
+            Confira se o endereço está em um formato válido.
+        </p>
+
+        <form id="emailForm">
+            <label for="email">Digite seu e-mail:</label>
+
+            <input
+                id="email"
+                name="email"
+                type="email"
+                placeholder="email@gmail.com"
+                autocomplete="email"
+                required
+            >
+
+            <button type="submit">Validar</button>
+        </form>
+
+        <p id="msgemail" aria-live="polite"></p>
+    </main>
+
+    <script>
+        const formulario = document.getElementById("emailForm");
+        const campoEmail = document.getElementById("email");
+        const mensagem = document.getElementById("msgemail");
+
+        formulario.addEventListener("submit", function (event) {
+            event.preventDefault();
+
+            const email = campoEmail.value.trim();
+            const emailValido = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+
+            if (emailValido) {
+                mensagem.textContent = "E-mail válido";
+                mensagem.style.color = "green";
+            } else {
+                mensagem.textContent =
+                    "E-mail inválido. Use o formato email@gmail.com";
+                mensagem.style.color = "red";
+            }
+        });
+    </script>
 </body>
-
 </html>
